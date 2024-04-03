@@ -1,24 +1,28 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import { CatsService } from 'src/modules/cats/cats.service';
 import { ConfigService } from '@nestjs/config';
 import { Cat } from './entities/cat.entity';
-
+import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
+import { Logger } from 'winston';
 
 @Controller('cats')
 export class CatsController {
-    constructor(private readonly catsService: CatsService, private configService: ConfigService) { }
+    constructor(
+        private readonly catsService: CatsService,
+        private configService: ConfigService,
+        @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger) { }
 
     @Get('')
     async getAll(): Promise<Cat[]> {
         // get an environment variable
-        const dbUser = this.configService.get<string>('DATABASE_USER');
-
+        // const dbUser = this.configService.get<string>('DATABASE_USER');
         // get a custom configuration value
-        const dbHost = this.configService.get<string>('DATABASE_PASSWORD');
+        // const dbHost = this.configService.get<string>('DATABASE_PASSWORD');
 
-        console.log(dbUser, dbHost);
+        const cats = await this.catsService.all();
 
-        return await this.catsService.all();
+        this.logger.info(`Count of cats: ${cats.length}`);
+        return cats;
     }
 
     @Get(':name')
