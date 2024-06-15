@@ -64,23 +64,32 @@ export class OrdersService {
 
     // TODO: move to staff module
     async create(order: CreateOrderDto): Promise<void> {
-        this.logger.info(`Creating order: ${order}`);
+        try {
+            // TODO: generate an items via staff api or\and config
+            // Create items first
+            await this.createItems(order.items);
 
-        await this.createItems(order.items);
+            const newOrder = new Order();
 
-        const newOrder = new Order();
+            // Set customer if customerId is provided
+            newOrder.customer = order.customerId
+                ? await this.customersRepository.findOneBy({ id: order.customerId })
+                : null;
 
-        if (order.customerId) {
-            newOrder.customer = await this.customersRepository.findOneBy({ id: order.customerId });
-        } else {
-            newOrder.customer = null;
+            // Set order status and items
+            newOrder.status = "pending";
+            newOrder.items = await this.orderItemsRepository.findBy({ id: In(order.items) });
+
+            // Save the new order
+            await this.ordersRepository.save(newOrder);
+
+            this.logger.info(`Order created successfully: ${newOrder.id}`);
+        } catch (error) {
+            this.logger.error(`Failed to create order: ${error.message}`);
+            throw new Error(`Order creation failed: ${error.message}`);
         }
-
-        newOrder.status = "pending";
-        newOrder.items = await this.orderItemsRepository.findBy({ id: In(order.items) });
-
-        await this.ordersRepository.save(newOrder);
     }
+
 
     async createItems(items: number[]): Promise<void> {
         const itemsToCreate = items.map((itemId) => {
