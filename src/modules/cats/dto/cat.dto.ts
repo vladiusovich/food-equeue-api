@@ -1,4 +1,4 @@
-import Cat from 'src/interfaces/cat.interface';
+import Cat from '../interfaces/cat.interface';
 
 export default class CatDto implements Cat {
   name: string;

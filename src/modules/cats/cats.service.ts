@@ -1,13 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Cat } from './entities/cat.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
+import { Logger } from 'winston';
 
 @Injectable()
 export class CatsService {
     constructor(
         @InjectRepository(Cat)
         private catsRepository: Repository<Cat>,
+        @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger
     ) { }
 
     all(): Promise<Cat[]> {
@@ -26,7 +29,9 @@ export class CatsService {
         return this.catsRepository.findOneBy({ name });
     }
 
-    create(cat: Cat): Promise<Cat> {
-        return this.catsRepository.save(cat);
+    async create(cat: Cat): Promise<Cat> {
+        const c = await this.catsRepository.save(cat);
+
+        return c;
     }
 }

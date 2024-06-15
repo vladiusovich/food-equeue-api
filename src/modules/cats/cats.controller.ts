@@ -19,9 +19,10 @@ export class CatsController {
         // get a custom configuration value
         // const dbHost = this.configService.get<string>('DATABASE_PASSWORD');
 
+        // this.logger.info(`dbHost: ${dbHost}`);
+
         const cats = await this.catsService.all();
 
-        this.logger.info(`Count of cats: ${cats.length}`);
         return cats;
     }
 
