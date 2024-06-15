@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { CatsModule } from '../modules/cats/cats.module';
-import { DogsModule } from '../modules/dogs/dogs.module';
+import { OrdersModule } from '../modules/orders/orders.module';
 import { LoggerModule } from 'src/configurations/logger.module';
 import { SqLiteDbModule } from './db.module';
 
@@ -12,7 +11,7 @@ import { SqLiteDbModule } from './db.module';
             // load: [configuration],
             isGlobal: true,
         })
-        , SqLiteDbModule, LoggerModule, CatsModule, DogsModule],
+        , SqLiteDbModule, LoggerModule, OrdersModule],
 })
 
 export class AppModule { }
