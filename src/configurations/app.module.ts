@@ -11,7 +11,7 @@ import { SqLiteDbModule } from './db.module';
             // load: [configuration],
             isGlobal: true,
         })
-        , SqLiteDbModule, LoggerModule, OrdersModule],
+        ,SqLiteDbModule, LoggerModule, OrdersModule],
 })
 
 export class AppModule { }
