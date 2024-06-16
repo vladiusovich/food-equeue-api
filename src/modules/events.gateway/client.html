@@ -22,6 +22,10 @@
             console.log('customer.orders.updated', data);
         });
 
+        socket.on('staff.orders.updated', function (data) {
+            console.log('customer.orders.updated', data);
+        });
+
         socket.on('exception', function (data) {
             console.log('event', data);
         });
