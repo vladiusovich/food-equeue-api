@@ -11,6 +11,8 @@ import { Server } from 'socket.io';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
 import { Inject } from '@nestjs/common';
+import CustomerEventType from './events/customer.events';
+import StaffEventType from './events/staff.events';
 
 @WebSocketGateway({
     cors: {
@@ -41,7 +43,11 @@ export class EventsGateway {
         return data;
     }
 
-    public ordersUpdate(data: any) {
-        this.server.emit("orders.update", data);
+    public emitCustomer(event: CustomerEventType, data: any) {
+        this.server.emit(event, data);
+    }
+
+    public emitStaff(event: StaffEventType, data: any) {
+        this.server.emit(event, data);
     }
 }

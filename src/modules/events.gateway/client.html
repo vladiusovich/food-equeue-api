@@ -18,8 +18,8 @@
             console.log('event', data);
         });
 
-        socket.on('orders.update', function (data) {
-            console.log('orders.update', data);
+        socket.on('customer.orders.updated', function (data) {
+            console.log('customer.orders.updated', data);
         });
 
         socket.on('exception', function (data) {

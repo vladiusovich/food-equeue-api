@@ -15,7 +15,7 @@ import { EventsGateway } from '../events.gateway/events.gateway';
     ],
     controllers: [OrdersController],
     providers: [OrdersService, OrderCreatedListener, EventsGateway],
-    exports: [TypeOrmModule],
+    exports: [TypeOrmModule, OrdersService],
 })
 
 export class OrdersModule { }
