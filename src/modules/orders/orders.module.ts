@@ -6,11 +6,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Customer } from './entities/customer.entity';
 import { OrderItem } from './entities/orderItem.entity';
 import { OrderCreatedListener } from './listeners/order-created.listener';
+import { EventsGateway } from '../events.gateway/events.gateway';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Order, OrderItem, Customer])],
+    imports: [
+        // EventsGatewayModule,
+        TypeOrmModule.forFeature([Order, OrderItem, Customer]),
+    ],
     controllers: [OrdersController],
-    providers: [OrdersService, OrderCreatedListener],
+    providers: [OrdersService, OrderCreatedListener, EventsGateway],
     exports: [TypeOrmModule],
 })
 

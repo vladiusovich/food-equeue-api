@@ -5,6 +5,7 @@ import { LoggerModule } from 'src/configurations/logger.module';
 import { SqLiteDbModule } from './db.module';
 import { SeederModule } from 'src/modules/seeder/seeder.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { EventsGatewayModule } from 'src/modules/events.gateway/events.gateway.module';
 
 @Module({
     imports: [
@@ -14,6 +15,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
             isGlobal: true,
         }),
         EventEmitterModule.forRoot(),
+        EventsGatewayModule,
         SqLiteDbModule, LoggerModule, OrdersModule, SeederModule],
 })
 
