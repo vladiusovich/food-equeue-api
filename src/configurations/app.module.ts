@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { OrdersModule } from '../modules/orders/orders.module';
 import { LoggerModule } from 'src/configurations/logger.module';
 import { SqLiteDbModule } from './db.module';
+import { SeederModule } from 'src/modules/seeder/seeder.module';
 
 @Module({
     imports: [
@@ -11,7 +12,7 @@ import { SqLiteDbModule } from './db.module';
             // load: [configuration],
             isGlobal: true,
         })
-        ,SqLiteDbModule, LoggerModule, OrdersModule],
+        ,SqLiteDbModule, LoggerModule, OrdersModule, SeederModule],
 })
 
 export class AppModule { }

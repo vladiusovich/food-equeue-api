@@ -18,11 +18,15 @@ export class OrdersService {
     constructor(
         @InjectRepository(Order)
         private ordersRepository: Repository<Order>,
+
         @InjectRepository(Customer)
         private customersRepository: Repository<Customer>,
+
         @InjectRepository(OrderItem)
         private orderItemsRepository: Repository<OrderItem>,
-        @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger
+
+        @Inject(WINSTON_MODULE_PROVIDER)
+        private readonly logger: Logger
     ) { }
 
     async getOrdersStatus(): Promise<OrdersStatus> {
