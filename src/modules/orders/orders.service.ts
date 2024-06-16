@@ -10,6 +10,7 @@ import { OrderItem } from './entities/orderItem.entity';
 import OrdersStatus from './interfaces/ordersStatus';
 import CustomerOrderStatus from './interfaces/customerOrderStatus';
 import tryFormatFullName from './utility/formatHelper';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 const getId = (order: Order): string => order.id.toString();
 
@@ -26,7 +27,8 @@ export class OrdersService {
         private orderItemsRepository: Repository<OrderItem>,
 
         @Inject(WINSTON_MODULE_PROVIDER)
-        private readonly logger: Logger
+        private readonly logger: Logger,
+        private eventEmitter: EventEmitter2,
     ) { }
 
     async getOrdersStatus(): Promise<OrdersStatus> {
@@ -88,6 +90,14 @@ export class OrdersService {
             await this.ordersRepository.save(newOrder);
 
             this.logger.info(`Order created successfully: ${newOrder.id}`);
+
+            this.eventEmitter.emit(
+                'order.created',
+                {
+                    orderId: 1,
+                    payload: newOrder,
+                    description: 'Order created successfully',
+                });
         } catch (error) {
             this.logger.error(`Failed to create order: ${error.message}`);
             throw new Error(`Order creation failed: ${error.message}`);
