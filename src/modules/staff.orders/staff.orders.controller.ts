@@ -1,5 +1,5 @@
 import { Body, Controller, Inject, Post } from '@nestjs/common';
-import { OrdersStaffService } from './orders.staff.service';
+import { OrdersStaffService } from './staff.orders.service';
 import { WINSTON_MODULE_PROVIDER } from "nest-winston";
 import { Logger } from "winston";
 import CreateOrderDto from './models/requesties/createOrder.request';

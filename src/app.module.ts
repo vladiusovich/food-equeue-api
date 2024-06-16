@@ -6,7 +6,7 @@ import { SqLiteDbModule } from './configurations/db.module';
 import { SeederModule } from 'src/modules/seeder/seeder.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { EventsGatewayModule } from 'src/modules/events.gateway/events.gateway.module';
-import { OrdersStaffModule } from 'src/modules/orders.staff/orders.staff.module';
+import { OrdersStaffModule } from 'src/modules/staff.orders/staff.orders.module';
 
 @Module({
     imports: [

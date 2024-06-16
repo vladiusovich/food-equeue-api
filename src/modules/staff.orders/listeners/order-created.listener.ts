@@ -4,7 +4,7 @@ import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
 import { OrderCreatedEvent } from '../events/order-created.event';
 import { EventsGateway } from 'src/modules/events.gateway/events.gateway';
-import { OrdersStaffInfoService } from '../orders.staff.info.service';
+import { OrdersStaffInfoService } from '../staff.orders.info.service';
 
 @Injectable()
 export class OrderCreatedListener {
