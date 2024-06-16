@@ -1,9 +1,7 @@
-import { Body, Controller, Get, Inject, NotFoundException, Post, Query } from "@nestjs/common";
+import { Controller, Get, Inject, NotFoundException, Query } from "@nestjs/common";
 import { OrdersService as OrdersService } from "src/modules/orders/orders.service";
-import { ConfigService } from "@nestjs/config";
 import { WINSTON_MODULE_PROVIDER } from "nest-winston";
 import { Logger } from "winston";
-import CreateOrderDto from "./models/requesties/createOrder.request";
 import OrdersStatus from "./interfaces/ordersStatus";
 import CustomerOrderStatus from "./interfaces/customerOrderStatus";
 
@@ -11,7 +9,6 @@ import CustomerOrderStatus from "./interfaces/customerOrderStatus";
 export class OrdersController {
     constructor(
         private readonly ordersService: OrdersService,
-        private configService: ConfigService,
         @Inject(WINSTON_MODULE_PROVIDER) private readonly logger: Logger) { }
 
     @Get("")
@@ -19,7 +16,7 @@ export class OrdersController {
         return this.ordersService.getOrdersStatus();
     }
 
-    @Get("/customer")
+    @Get("customer")
     async getCustomerOrderStatus(@Query("id") id: string): Promise<CustomerOrderStatus | null> {
         const pId = Number.parseInt(id);
 
@@ -34,11 +31,5 @@ export class OrdersController {
         }
 
         return orderStatus;
-    }
-
-    // TODO: move to staff API
-    @Post()
-    async create(@Body() order: CreateOrderDto) {
-        return this.ordersService.create(order);
     }
 }
