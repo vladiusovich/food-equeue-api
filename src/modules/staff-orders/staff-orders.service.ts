@@ -9,6 +9,7 @@ import { Order } from '../orders/entities/order.entity';
 import { Customer } from '../orders/entities/customer.entity';
 import { Product } from '../orders/entities/product.entity';
 import UpdateOrderRequest from './models/requesties/update-order.request';
+import FindOrderRequest from './models/requesties/find-order.request';
 
 @Injectable()
 export class OrdersStaffService {
@@ -27,6 +28,20 @@ export class OrdersStaffService {
         @Inject(WINSTON_MODULE_PROVIDER)
         private readonly logger: Logger,
     ) { }
+
+    async find(request: FindOrderRequest): Promise<Order[]> {
+        const orders = await this.ordersRepository.find({
+            relations: {
+                customer: true,
+                products: true,
+            },
+            where: {
+                ...request,
+            },
+        });
+
+        return orders ?? [];
+    }
 
     async create(order: CreateOrderRequest): Promise<Order> {
         try {

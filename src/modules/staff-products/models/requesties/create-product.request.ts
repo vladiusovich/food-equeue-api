@@ -1,5 +1,5 @@
 
-export default class CreateProdactRequest {
+export default class CreateProductRequest {
     name: string;
 
     price: number;
