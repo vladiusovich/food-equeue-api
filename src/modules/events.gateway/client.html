@@ -28,7 +28,7 @@
         });
 
         socket.on('customer.orders.executionTimeChanged', function (data) {
-            console.log('customer.orders.executionTimeChanged', data / 60);
+            console.log('customer.orders.executionTimeChanged', data);
         });
 
         socket.on('staff.orders.updated', function (data) {

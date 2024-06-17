@@ -1,15 +1,16 @@
-export const calculateDeltaInSeconds = (createdAt: Date, readyAt?: Date) => {
+export const calculateDeltaInMinutes = (createdAt: Date, readyAt?: Date) => {
     if (!readyAt) {
         return 0;
     }
+
     const deltaInMilliseconds = readyAt.getTime() - createdAt.getTime();
-    const deltaInSeconds = deltaInMilliseconds / 1000;
-    return deltaInSeconds;
+
+    return deltaInMilliseconds / 1000 / 60;
 };
 
 
-export const calculateMedianExecutionTime = (items: { createdAt: Date, readyAt?: Date }[]): number => {
-    const delta = items.map(i => calculateDeltaInSeconds(i.createdAt, i?.readyAt));
+export const calculateMedian = (items: { createdAt: Date, readyAt?: Date }[]): number => {
+    const delta = items.map(i => calculateDeltaInMinutes(i.createdAt, i?.readyAt));
 
     const sorted = delta.sort((a, b) => a - b);
 
@@ -22,4 +23,12 @@ export const calculateMedianExecutionTime = (items: { createdAt: Date, readyAt?:
 
     // if the number of elements is even, return the average of the middle two elements
     return (sorted[middleIndex - 1] + sorted[middleIndex]) / 2;
+}
+
+export const calculateAverage = (items: { createdAt: Date, readyAt?: Date }[]): number => {
+    const delta = items.map(i => calculateDeltaInMinutes(i.createdAt, i?.readyAt));
+
+    const sum = delta.reduce((acc, val) => acc + val, 0);
+
+    return Math.round(sum / delta.length);
 }

@@ -9,6 +9,7 @@ import { EventsGatewayModule } from 'src/modules/events.gateway/events.gateway.m
 import { OrdersStaffModule } from 'src/modules/staff-orders/staff-orders.module';
 import { StaffProductsModule } from './modules/staff-products/staff-products.module';
 import { OrderExecutionCalculatorModule } from './modules/order-execution-time-calculator/order-execution-calculator.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
     imports: [
@@ -17,6 +18,7 @@ import { OrderExecutionCalculatorModule } from './modules/order-execution-time-c
             // load: [configuration],
             isGlobal: true,
         }),
+        ScheduleModule.forRoot(),
         EventEmitterModule.forRoot(), EventsGatewayModule,
         SqLiteDbModule, LoggerModule, OrdersModule,
         SeederModule, OrdersStaffModule, StaffProductsModule,

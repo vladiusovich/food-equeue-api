@@ -3,7 +3,7 @@ import { OnEvent } from '@nestjs/event-emitter';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { EventsGateway } from 'src/modules/events.gateway/events.gateway';
 import { Logger } from 'winston';
-import { OrderExecutionCalculatorService } from '../order-execution-calculator-servece';
+import { OrderExecutionCalculatorService } from '../order-execution-calculator-service';
 
 @Injectable()
 export class OrderCreatedListener {
@@ -22,7 +22,7 @@ export class OrderCreatedListener {
     async handleOrderCreatedEvent() {
         this.logger.info(`Calculate order execution time`);
 
-        const expirationTime = await this.orderExecutionCalculatorService.calculateExecutionTime();
+        const expirationTime = await this.orderExecutionCalculatorService.getMedian();
 
         this.eventsGateway.emitCustomer("customer.orders.executionTimeChanged", expirationTime);
     }

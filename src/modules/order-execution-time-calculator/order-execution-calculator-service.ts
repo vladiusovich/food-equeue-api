@@ -5,7 +5,10 @@ import { LessThanOrEqual, MoreThanOrEqual, Repository } from 'typeorm';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
 import { startOfToday, endOfToday } from 'date-fns';
-import { calculateMedianExecutionTime } from './utility/culculator.helper';
+import { calculateAverage, calculateMedian } from './utility/culculator.helper';
+
+// TODO: move to config or DB
+const DEFAULT_EXECUTION_TIME = 5;
 
 @Injectable()
 export class OrderExecutionCalculatorService {
@@ -17,7 +20,27 @@ export class OrderExecutionCalculatorService {
         private readonly logger: Logger
     ) { }
 
-    async calculateExecutionTime() {
+    async getAverage() {
+        const readyOrders = await this.getReadyOrders();
+
+        if (readyOrders.length === 0) {
+            return Math.round(DEFAULT_EXECUTION_TIME);
+        }
+
+        return calculateAverage(readyOrders);
+    }
+
+    async getMedian() {
+        const readyOrders = await this.getReadyOrders();
+
+        if (readyOrders.length === 0) {
+            return Math.round(DEFAULT_EXECUTION_TIME);
+        }
+
+        return calculateMedian(readyOrders);
+    }
+
+    private async getReadyOrders() {
         const start = startOfToday();
         const end = endOfToday();
 
@@ -31,8 +54,6 @@ export class OrderExecutionCalculatorService {
 
         const readyOrders = orders.filter(order => order.readyAt);
 
-        const executionTime = calculateMedianExecutionTime(readyOrders);
-
-        return executionTime;
+        return readyOrders;
     }
 }
