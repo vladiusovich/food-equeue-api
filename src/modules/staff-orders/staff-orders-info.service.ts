@@ -5,7 +5,7 @@ import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
 import { Order } from '../orders/entities/order.entity';
 import { Customer } from '../orders/entities/customer.entity';
-import { OrderItem } from '../orders/entities/orderItem.entity';
+import { Product } from '../orders/entities/product.entity';
 
 @Injectable()
 export class OrdersStaffInfoService {
@@ -17,8 +17,8 @@ export class OrdersStaffInfoService {
         @InjectRepository(Customer)
         private customersRepository: Repository<Customer>,
 
-        @InjectRepository(OrderItem)
-        private orderItemsRepository: Repository<OrderItem>,
+        @InjectRepository(Product)
+        private productsRepository: Repository<Product>,
 
         @Inject(WINSTON_MODULE_PROVIDER)
         private readonly logger: Logger,
@@ -27,7 +27,7 @@ export class OrdersStaffInfoService {
 
     async getOrdersStatus(): Promise<Order[]> {
         const orders = await this.ordersRepository.find({
-            relations: ["items", "customer"],
+            relations: ["products", "customer"],
         });
 
         return orders;

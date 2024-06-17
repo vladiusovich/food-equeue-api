@@ -4,17 +4,21 @@ import { OrdersService } from 'src/modules/orders/orders.service';
 import { Order } from './entities/order.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Customer } from './entities/customer.entity';
-import { OrderItem } from './entities/orderItem.entity';
+import { Product } from './entities/product.entity';
 import { OrderCreatedListener } from './listeners/order-created.listener';
 import { EventsGateway } from '../events.gateway/events.gateway';
+import { OrderUpdatedListener } from './listeners/order-updated.listener';
 
 @Module({
     imports: [
         // EventsGatewayModule,
-        TypeOrmModule.forFeature([Order, OrderItem, Customer]),
+        TypeOrmModule.forFeature([Order, Product, Customer]),
     ],
     controllers: [OrdersController],
-    providers: [OrdersService, OrderCreatedListener, EventsGateway],
+    providers: [
+        OrdersService, EventsGateway,
+        OrderCreatedListener, OrderUpdatedListener,
+    ],
     exports: [TypeOrmModule],
 })
 
