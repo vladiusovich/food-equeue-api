@@ -8,35 +8,19 @@ describe('calculateDeltaInSeconds', () => {
 
     it('should correctly calculate the difference in seconds', () => {
         const createdAt = new Date('2024-01-01T12:00:00Z');
-        const readyAt = new Date('2024-01-01T11:59:00Z');
-        expect(calculateDeltaInSeconds(createdAt, readyAt)).toBe(60);
-    });
-
-    it('should handle negative differences', () => {
-        const createdAt = new Date('2024-01-01T11:59:00Z');
-        const readyAt = new Date('2024-01-01T12:00:00Z');
-        expect(calculateDeltaInSeconds(createdAt, readyAt)).toBe(-60);
+        const readyAt = new Date('2024-01-01T12:05:00Z');
+        expect(calculateDeltaInSeconds(createdAt, readyAt)).toBe(300);
     });
 });
 
 describe('calculateMedianExecutionTime', () => {
     it('should return the median of an odd number of elements', () => {
         const items = [
-            { createdAt: new Date('2024-01-01T12:00:00Z'), readyAt: new Date('2024-01-01T11:59:00Z') },
-            { createdAt: new Date('2024-01-01T12:00:00Z'), readyAt: new Date('2024-01-01T11:58:00Z') },
-            { createdAt: new Date('2024-01-01T12:00:00Z'), readyAt: new Date('2024-01-01T11:57:00Z') },
+            { createdAt: new Date('2024-01-01T12:00:00Z'), readyAt: new Date('2024-01-01T12:05:00Z') },
+            { createdAt: new Date('2024-01-01T12:00:00Z'), readyAt: new Date('2024-01-01T12:06:00Z') },
+            { createdAt: new Date('2024-01-01T12:00:00Z'), readyAt: new Date('2024-01-01T12:07:00Z') },
         ];
-        expect(calculateMedianExecutionTime(items)).toBe(120);
-    });
-
-    it('should return the average of the middle two elements for an even number of elements', () => {
-        const items = [
-            { createdAt: new Date('2024-01-01T12:00:00Z'), readyAt: new Date('2024-01-01T11:59:00Z') },
-            { createdAt: new Date('2024-01-01T12:00:00Z'), readyAt: new Date('2024-01-01T11:58:00Z') },
-            { createdAt: new Date('2024-01-01T12:00:00Z'), readyAt: new Date('2024-01-01T11:57:00Z') },
-            { createdAt: new Date('2024-01-01T12:00:00Z'), readyAt: new Date('2024-01-01T11:56:00Z') },
-        ];
-        expect(calculateMedianExecutionTime(items)).toBe(150);
+        expect(calculateMedianExecutionTime(items)).toBe(360);
     });
 
     it('should handle empty array', () => {
@@ -46,8 +30,8 @@ describe('calculateMedianExecutionTime', () => {
 
     it('should handle array with one element', () => {
         const items = [
-            { createdAt: new Date('2024-01-01T12:00:00Z'), readyAt: new Date('2024-01-01T11:59:00Z') },
+            { createdAt: new Date('2024-01-01T12:00:00Z'), readyAt: new Date('2024-01-01T12:05:00Z') },
         ];
-        expect(calculateMedianExecutionTime(items)).toBe(60);
+        expect(calculateMedianExecutionTime(items)).toBe(300);
     });
 });

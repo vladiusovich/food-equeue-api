@@ -2,7 +2,7 @@ export const calculateDeltaInSeconds = (createdAt: Date, readyAt?: Date) => {
     if (!readyAt) {
         return 0;
     }
-    const deltaInMilliseconds = createdAt.getTime() - readyAt.getTime();
+    const deltaInMilliseconds = readyAt.getTime() - createdAt.getTime();
     const deltaInSeconds = deltaInMilliseconds / 1000;
     return deltaInSeconds;
 };
