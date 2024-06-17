@@ -8,6 +8,8 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { EventsGatewayModule } from 'src/modules/events.gateway/events.gateway.module';
 import { OrdersStaffModule } from 'src/modules/staff-orders/staff-orders.module';
 import { StaffProductsModule } from './modules/staff-products/staff-products.module';
+import { OrderExecutionCalculatorModule } from './modules/order-execution-time-calculator/order-execution-calculator.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
     imports: [
@@ -16,9 +18,12 @@ import { StaffProductsModule } from './modules/staff-products/staff-products.mod
             // load: [configuration],
             isGlobal: true,
         }),
-        EventEmitterModule.forRoot(),
-        EventsGatewayModule,
-        SqLiteDbModule, LoggerModule, OrdersModule, SeederModule, OrdersStaffModule, StaffProductsModule],
+        ScheduleModule.forRoot(),
+        EventEmitterModule.forRoot(), EventsGatewayModule,
+        SqLiteDbModule, LoggerModule, OrdersModule,
+        SeederModule, OrdersStaffModule, StaffProductsModule,
+        OrderExecutionCalculatorModule,
+    ],
 })
 
 export class AppModule { }

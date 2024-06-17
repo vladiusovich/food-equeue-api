@@ -81,7 +81,11 @@ export class OrdersStaffService {
                 id: order.id,
             });
 
-            const updatedOrder = await this.ordersRepository.save({ ...toUpdatedOrder, status: order.status });
+            const updatedOrder = await this.ordersRepository.save({
+                ...toUpdatedOrder,
+                status: order.status,
+                readyAt: order.status === "ready" ? new Date() : undefined,
+            });
 
             this.eventEmitter.emit(
                 "order.updated",

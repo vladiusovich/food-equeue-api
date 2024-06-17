@@ -12,6 +12,7 @@ import { OrderUpdatedListener } from './listeners/order-updated.listener';
 @Module({
     imports: [
         // EventsGatewayModule,
+        // TODO: move to separate module?
         TypeOrmModule.forFeature([Order, Product, Customer]),
     ],
     controllers: [OrdersController],

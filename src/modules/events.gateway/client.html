@@ -27,6 +27,10 @@
             console.log('customer.orders.updated', data);
         });
 
+        socket.on('customer.orders.executionTimeChanged', function (data) {
+            console.log('customer.orders.executionTimeChanged', data);
+        });
+
         socket.on('staff.orders.updated', function (data) {
             console.log('staff.orders.updated', data);
         });

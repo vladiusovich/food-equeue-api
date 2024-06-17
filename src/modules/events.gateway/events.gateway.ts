@@ -31,8 +31,6 @@ export class EventsGateway {
     @SubscribeMessage('events')
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     findAll(@MessageBody() data: any): Observable<WsResponse<number>> {
-        this.logger.info(`Recive the event 'events': ${data}`);
-
         return from([1, 2, 3]).pipe(map(item => ({ event: 'events', data: item })));
     }
 
