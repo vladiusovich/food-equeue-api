@@ -2,12 +2,12 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Order } from '../orders/entities/order.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { OrderItem } from '../orders/entities/orderItem.entity';
+import { Product } from '../orders/entities/product.entity';
 import { Customer } from '../orders/entities/customer.entity';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
 
-const orderItems = [
+const product = [
     { id: 1, name: 'Item 1', price: 10 },
     { id: 2, name: 'Item 2', price: 20 },
     { id: 3, name: 'Item 3', price: 30 },
@@ -21,8 +21,8 @@ export class SeederService {
         @InjectRepository(Order)
         private readonly orderRepository: Repository<Order>,
 
-        @InjectRepository(OrderItem)
-        private readonly orderItemRepository: Repository<OrderItem>,
+        @InjectRepository(Product)
+        private readonly orderItemRepository: Repository<Product>,
 
         @InjectRepository(Customer)
         private readonly customerRepository: Repository<Customer>,
@@ -36,7 +36,7 @@ export class SeederService {
         if (isDevelopment) {
             this.logger.info("Seeding data for dev env...");
 
-            await this.seedOrderItems();
+            await this.seedProducts();
             await this.seedCustomers();
             await this.seedOrders();
 
@@ -44,8 +44,8 @@ export class SeederService {
         }
     }
 
-    async seedOrderItems() {
-        await this.orderItemRepository.save(orderItems);
+    async seedProducts() {
+        await this.orderItemRepository.save(product);
     }
 
     async seedCustomers() {
@@ -66,21 +66,21 @@ export class SeederService {
             {
                 id: 1,
                 status: 'pending',
-                items: orderItems,
+                products: product,
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
                 id: 2,
                 status: 'pending',
-                items: orderItems,
+                products: product,
                 createdAt: new Date(),
                 updatedAt: new Date(),
             },
             {
                 id: 3,
                 status: 'pending',
-                items: orderItems,
+                products: product,
                 createdAt: new Date(),
                 updatedAt: new Date(),
             }

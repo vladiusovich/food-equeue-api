@@ -36,13 +36,6 @@ export class EventsGateway {
         return from([1, 2, 3]).pipe(map(item => ({ event: 'events', data: item })));
     }
 
-    @SubscribeMessage('identity')
-    async identity(@MessageBody() data: number): Promise<number> {
-        this.logger.info(`Recive the event 'identity': ${data}`);
-
-        return data;
-    }
-
     public emitCustomer(event: CustomerEventType, data: any) {
         this.server.emit(event, data);
     }

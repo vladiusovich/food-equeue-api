@@ -6,7 +6,8 @@ import { SqLiteDbModule } from './configurations/db.module';
 import { SeederModule } from 'src/modules/seeder/seeder.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { EventsGatewayModule } from 'src/modules/events.gateway/events.gateway.module';
-import { OrdersStaffModule } from 'src/modules/staff.orders/staff.orders.module';
+import { OrdersStaffModule } from 'src/modules/staff-orders/staff-orders.module';
+import { StaffProductsModule } from './modules/staff-products/staff-products.module';
 
 @Module({
     imports: [
@@ -17,7 +18,7 @@ import { OrdersStaffModule } from 'src/modules/staff.orders/staff.orders.module'
         }),
         EventEmitterModule.forRoot(),
         EventsGatewayModule,
-        SqLiteDbModule, LoggerModule, OrdersModule, SeederModule, OrdersStaffModule],
+        SqLiteDbModule, LoggerModule, OrdersModule, SeederModule, OrdersStaffModule, StaffProductsModule],
 })
 
 export class AppModule { }

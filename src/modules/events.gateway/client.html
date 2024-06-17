@@ -10,12 +10,17 @@
             console.log('Connected');
 
             socket.emit('events', { test: 'test' });
-            socket.emit('identity', 0, response =>
-                console.log('Identity:', response),
-            );
+            // socket.emit('identity', 0, response =>
+            //     console.log('Identity:', response),
+            // );
         });
-        socket.on('events', function (data) {
-            console.log('event', data);
+
+        socket.on('customer.order.created', function (data) {
+            console.log('customer.order.created', data);
+        });
+
+        socket.on('customer.order.updated', function (data) {
+            console.log('customer.order.updated', data);
         });
 
         socket.on('customer.orders.updated', function (data) {
@@ -23,12 +28,21 @@
         });
 
         socket.on('staff.orders.updated', function (data) {
-            console.log('customer.orders.updated', data);
+            console.log('staff.orders.updated', data);
+        });
+
+        socket.on('staff.order.created', function (data) {
+            console.log('staff.order.created', data);
+        });
+
+        socket.on('staff.order.updated', function (data) {
+            console.log('staff.order.updated', data);
         });
 
         socket.on('exception', function (data) {
             console.log('event', data);
         });
+
         socket.on('disconnect', function () {
             console.log('Disconnected');
         });

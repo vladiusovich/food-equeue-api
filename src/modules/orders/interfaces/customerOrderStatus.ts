@@ -6,5 +6,5 @@ export default interface CustomerOrderStatus {
 
     status: string;
 
-    items: string[];
+    products: string[];
 }

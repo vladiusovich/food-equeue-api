@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, UpdateDateColumn, Column, ManyToMany, JoinTable } from 'typeorm';
 import { Customer } from './customer.entity';
-import { OrderItem } from './orderItem.entity';
+import { Product } from './product.entity';
 import StatusType from '../types/StatusType';
 
 @Entity()
@@ -26,9 +26,9 @@ export class Order {
     @Column({ nullable: true })
     deliveredAt?: Date;
 
-    @ManyToMany(() => OrderItem, {
+    @ManyToMany(() => Product, {
         cascade: true,
     })
     @JoinTable()
-    items: OrderItem[];
+    products: Product[];
 }

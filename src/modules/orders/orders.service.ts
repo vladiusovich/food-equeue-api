@@ -36,7 +36,7 @@ export class OrdersService {
     async getCustomerOrderStatus(id: number): Promise<CustomerOrderStatus | null> {
         const order = await this.ordersRepository.findOne({
             where: { id },
-            relations: ["items", "customer"],
+            relations: ["products", "customer"],
         });
 
         this.logger.info(`Order: ${order}`);
@@ -48,7 +48,7 @@ export class OrdersService {
         return {
             id: order.id.toString(),
             status: order.status,
-            items: order.items.map((item) => item.name),
+            products: order.products.map((item) => item.name),
             customer: tryFormatFullName(order?.customer)
         };
     }
