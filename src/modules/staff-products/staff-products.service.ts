@@ -51,4 +51,8 @@ export class StaffProductsService {
 
         return updatedProduct;
     }
+
+    async delete(id: number): Promise<void> {
+        await this.productsRepository.delete({ id });
+    }
 }
