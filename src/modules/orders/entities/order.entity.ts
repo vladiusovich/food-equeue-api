@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, UpdateDateColumn, Column, ManyToMany, JoinTable } from 'typeorm';
-import { Customer } from './customer.entity';
-import { Product } from './product.entity';
+import { Customer } from '../../customers/entities/customer.entity';
+import { Product } from '../../staff-products/entities/product.entity';
 import StatusType from '../types/StatusType';
 
 @Entity()

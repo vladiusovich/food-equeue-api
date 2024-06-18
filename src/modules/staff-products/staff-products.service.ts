@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
-import { Product } from '../orders/entities/product.entity';
+import { Product } from './entities/product.entity';
 import CreateProductRequest from './models/requesties/create-product.request';
 import FindProductRequest from './models/requesties/find-product.request';
 import UpdateProductRequest from './models/requesties/update-product.request';
@@ -38,26 +38,21 @@ export class StaffProductsService {
     }
 
     async create(product: CreateProductRequest): Promise<Product> {
-        try {
-            return await this.productsRepository.save({ ...product });
-        } catch (error) {
-            this.logger.error(`Failed to create product: ${error.message}`);
-            throw new Error(`Product creation failed: ${error.message}`);
-        }
+        return await this.productsRepository.save({ ...product });
+
     }
 
     async update(product: UpdateProductRequest): Promise<Product> {
-        try {
-            const toUpdate = await this.productsRepository.findOneBy({
-                id: product.id,
-            });
+        const toUpdate = await this.productsRepository.findOneBy({
+            id: product.id,
+        });
 
-            const updatedProduct = await this.productsRepository.save({ ...toUpdate, ...product });
+        const updatedProduct = await this.productsRepository.save({ ...toUpdate, ...product });
 
-            return updatedProduct;
-        } catch (error) {
-            this.logger.error(`Failed to create order: ${error.message}`);
-            throw new Error(`Order creation failed: ${error.message}`);
-        }
+        return updatedProduct;
+    }
+
+    async delete(id: number): Promise<void> {
+        await this.productsRepository.delete({ id });
     }
 }

@@ -2,8 +2,8 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Order } from '../orders/entities/order.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Product } from '../orders/entities/product.entity';
-import { Customer } from '../orders/entities/customer.entity';
+import { Product } from '../staff-products/entities/product.entity';
+import { Customer } from '../customers/entities/customer.entity';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
 
@@ -59,7 +59,6 @@ export class SeederService {
 
         await this.customerRepository.save(customers);
     }
-
 
     async seedOrders() {
         const orders: Order[] = [
