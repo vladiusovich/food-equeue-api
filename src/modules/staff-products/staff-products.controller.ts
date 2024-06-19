@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Inject, NotFoundException, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Inject, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
 import { WINSTON_MODULE_PROVIDER } from "nest-winston";
 import { Logger } from "winston";
 import CreateProductRequest from './models/requesties/create-product.request';
@@ -31,13 +31,7 @@ export class StaffProductsController {
     }
 
     @Delete('/products')
-    async delete(@Query("id") id: string) {
-        const pId = Number.parseInt(id);
-
-        if (isNaN(pId)) {
-            throw new NotFoundException(`Order with id '${id}' not found`);
-        }
-
-        return await this.staffProductService.delete(pId);
+    async delete(@Query("id", ParseIntPipe) id: number) {
+        return await this.staffProductService.delete(id);
     }
 }
