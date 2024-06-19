@@ -1,4 +1,4 @@
-import { Controller, Get, Inject, NotFoundException, Query } from "@nestjs/common";
+import { Controller, Get, Inject, ParseIntPipe, Query } from "@nestjs/common";
 import { OrdersService as OrdersService } from "src/modules/orders/orders.service";
 import { WINSTON_MODULE_PROVIDER } from "nest-winston";
 import { Logger } from "winston";
@@ -17,19 +17,7 @@ export class OrdersController {
     }
 
     @Get("customer")
-    async getCustomerOrderStatus(@Query("id") id: string): Promise<CustomerOrderStatus | null> {
-        const pId = Number.parseInt(id);
-
-        if (isNaN(pId)) {
-            throw new NotFoundException(`Order with id '${id}' not found`);
-        }
-
-        const orderStatus = await this.ordersService.getCustomerOrderStatus(pId);
-
-        if (!orderStatus) {
-            throw new NotFoundException(`Order with id '${id}' not found`);
-        }
-
-        return orderStatus;
+    async getCustomerOrderStatus(@Query("id", ParseIntPipe) id: number): Promise<CustomerOrderStatus | null> {
+        return await this.ordersService.getCustomerOrderStatus(id);
     }
 }
