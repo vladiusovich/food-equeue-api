@@ -2,9 +2,9 @@ import { Body, Controller, Get, Inject, Post, Put, Query } from '@nestjs/common'
 import { OrdersStaffService } from './staff-orders.service';
 import { WINSTON_MODULE_PROVIDER } from "nest-winston";
 import { Logger } from "winston";
-import CreateOrderRequest from './models/requesties/create-order.request';
-import UpdateOrderRequest from './models/requesties/update-order.request';
-import FindOrderRequest from './models/requesties/find-order.request';
+import CreateOrderRequest from './models/requests/create-order.request';
+import UpdateOrderRequest from './models/requests/update-order.request';
+import FindOrderRequest from './models/requests/find-order.request';
 
 @Controller('staff')
 export class OrdersStaffController {

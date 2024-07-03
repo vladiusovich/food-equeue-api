@@ -28,8 +28,6 @@ export class OrdersService {
         return {
             inProgress: orders.filter((order) => order.status === "inProgress" || order.status === "pending").map(getId),
             ready: orders.filter((order) => order.status === "ready").map(getId),
-            //TODO: calculate waiting time
-            // waitingTime: 10,
         };
     }
 

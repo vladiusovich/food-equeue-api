@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, UpdateDateColumn, Column, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, UpdateDateColumn, Column, ManyToMany, JoinTable, Index } from 'typeorm';
 import { Customer } from '../../customers/entities/customer.entity';
 import { Product } from '../../staff-products/entities/product.entity';
 import StatusType from '../types/StatusType';
@@ -26,6 +26,10 @@ export class Order {
 
     @Column({ nullable: true })
     deliveredAt?: Date;
+
+    // @Index({ unique: true })
+    @Column({ nullable: true })
+    hash?: string;
 
     @ManyToMany(() => Product, {
         cascade: true,

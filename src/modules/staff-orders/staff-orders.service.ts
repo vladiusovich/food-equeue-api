@@ -4,16 +4,16 @@ import { In, Repository } from 'typeorm';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import CreateOrderRequest from './models/requesties/create-order.request';
+import CreateOrderRequest from './models/requests/create-order.request';
 import { Order } from '../orders/entities/order.entity';
 import { Customer } from '../customers/entities/customer.entity';
 import { Product } from '../staff-products/entities/product.entity';
-import UpdateOrderRequest from './models/requesties/update-order.request';
-import FindOrderRequest from './models/requesties/find-order.request';
+import UpdateOrderRequest from './models/requests/update-order.request';
+import FindOrderRequest from './models/requests/find-order.request';
+import { formatPlainText, generateHash } from './utility/hash.generator';
 
 @Injectable()
 export class OrdersStaffService {
-
     constructor(
         private eventEmitter: EventEmitter2,
         @InjectRepository(Order)
@@ -43,27 +43,37 @@ export class OrdersStaffService {
         return orders ?? [];
     }
 
-    async create(order: CreateOrderRequest): Promise<Order> {
+    async create(request: CreateOrderRequest): Promise<Order> {
         const newOrder = new Order();
 
         // Set customer if customerId is provided
-        newOrder.customer = order.customerId
-            ? await this.customersRepository.findOneBy({ id: order.customerId })
+        newOrder.customer = request.customerId
+            ? await this.customersRepository.findOneBy({ id: request.customerId })
             : null;
 
         // Set order status and products
         newOrder.status = "pending";
-        newOrder.products = await this.productsRepository.findBy({ id: In(order.products) });
+        newOrder.products = await this.productsRepository.findBy({ id: In(request.products) });
 
         // Save the new order
         const createdOrder = await this.ordersRepository.save(newOrder);
+
+        const plainText = formatPlainText({
+            id: createdOrder.id,
+            branchId: request.branchId,
+        });
+
+        // Generate hash
+        createdOrder.hash = await generateHash(plainText);
+
+        await this.ordersRepository.save(createdOrder);
 
         this.logger.info(`Order created successfully: ${newOrder.id}`);
 
         this.eventEmitter.emit(
             "order.created",
             {
-                orderId: 1,
+                orderId: createdOrder.id,
                 payload: createdOrder,
             });
 
@@ -71,12 +81,16 @@ export class OrdersStaffService {
     }
 
     async update(order: UpdateOrderRequest): Promise<Order> {
-        const toUpdatedOrder = await this.ordersRepository.findOneBy({
+        const toUpdateOrder = await this.ordersRepository.findOneBy({
             id: order.id,
         });
 
+        if (!toUpdateOrder) {
+            throw new Error(`Order with id ${order.id} not found`);
+        }
+
         const updatedOrder = await this.ordersRepository.save({
-            ...toUpdatedOrder,
+            ...toUpdateOrder,
             status: order.status,
             readyAt: order.status === "ready" ? new Date() : undefined,
         });
@@ -84,7 +98,7 @@ export class OrdersStaffService {
         this.eventEmitter.emit(
             "order.updated",
             {
-                orderId: 1,
+                orderId: updatedOrder.id,
                 payload: updatedOrder,
             });
 

@@ -95,6 +95,7 @@ export class SeederService {
                 createdAt: new Date('2024-07-03T15:10:32.554Z'),
                 updatedAt: new Date(),
                 branch: branches[0],
+                hash: 'hash1'
             },
             {
                 id: 2,
@@ -103,6 +104,7 @@ export class SeederService {
                 createdAt: new Date('2024-07-03T15:21:12.554Z'),
                 updatedAt: new Date(),
                 branch: branches[0],
+                hash: 'hash2'
             },
             {
                 id: 3,
@@ -111,6 +113,7 @@ export class SeederService {
                 createdAt: new Date('2024-07-03T15:19:32.554Z'),
                 updatedAt: new Date(),
                 branch: branches[0],
+                hash: 'hash3'
             }
         ];
 
