@@ -22,7 +22,7 @@ export class OrderCreatedListener {
     async handleOrderCreatedEvent() {
         this.logger.info(`Calculate order execution time`);
 
-        const expirationTime = await this.orderExecutionCalculatorService.getMedian();
+        const expirationTime = await this.orderExecutionCalculatorService.getAverage();
 
         this.eventsGateway.emitCustomer("customer.orders.executionTimeChanged", expirationTime);
     }

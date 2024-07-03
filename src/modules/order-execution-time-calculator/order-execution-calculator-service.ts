@@ -10,6 +10,7 @@ import { calculateAverage, calculateMedian } from './utility/culculator.helper';
 // TODO: move to config or DB
 const DEFAULT_EXECUTION_TIME = 5;
 
+// TODO: calculate average and median depend on branch id
 @Injectable()
 export class OrderExecutionCalculatorService {
     constructor(

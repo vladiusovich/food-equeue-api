@@ -8,7 +8,6 @@ export const calculateDeltaInMinutes = (createdAt: Date, readyAt?: Date) => {
     return deltaInMilliseconds / 1000 / 60;
 };
 
-
 export const calculateMedian = (items: { createdAt: Date, readyAt?: Date }[]): number => {
     const delta = items.map(i => calculateDeltaInMinutes(i.createdAt, i?.readyAt));
 
@@ -28,7 +27,9 @@ export const calculateMedian = (items: { createdAt: Date, readyAt?: Date }[]): n
 export const calculateAverage = (items: { createdAt: Date, readyAt?: Date }[]): number => {
     const delta = items.map(i => calculateDeltaInMinutes(i.createdAt, i?.readyAt));
 
-    const sum = delta.reduce((acc, val) => acc + val, 0);
+    const positiveValues = delta.filter(d => d > 0);
 
-    return Math.round(sum / delta.length);
+    const sum = positiveValues.reduce((acc, val) => acc + val, 0);
+
+    return Math.round(sum / positiveValues.length);
 }
