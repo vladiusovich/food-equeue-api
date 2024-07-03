@@ -6,13 +6,33 @@ import { Product } from '../staff-products/entities/product.entity';
 import { Customer } from '../customers/entities/customer.entity';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
+import { Branch } from '../branches/entities/branch.entity';
 
-const product = [
+const products = [
     { id: 1, name: 'Item 1', price: 10 },
     { id: 2, name: 'Item 2', price: 20 },
     { id: 3, name: 'Item 3', price: 30 },
     { id: 4, name: 'Item 4', price: 40 },
     { id: 5, name: 'Item 5', price: 50 }
+];
+
+const branches = [
+    {
+        id: 1,
+        name: 'Branch 1',
+        address: 'Address 1',
+        description: 'Description 1',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
+    {
+        id: 2,
+        name: 'Branch 2',
+        address: 'Address 2',
+        description: 'Description 2',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
 ];
 
 @Injectable()
@@ -27,6 +47,9 @@ export class SeederService {
         @InjectRepository(Customer)
         private readonly customerRepository: Repository<Customer>,
 
+        @InjectRepository(Branch)
+        private readonly branchRepository: Repository<Branch>,
+
         @Inject(WINSTON_MODULE_PROVIDER)
         private readonly logger: Logger
     ) { }
@@ -36,6 +59,7 @@ export class SeederService {
         if (isDevelopment) {
             this.logger.info("Seeding data for dev env...");
 
+            await this.seedBranches();
             await this.seedProducts();
             await this.seedCustomers();
             await this.seedOrders();
@@ -45,7 +69,7 @@ export class SeederService {
     }
 
     async seedProducts() {
-        await this.orderItemRepository.save(product);
+        await this.orderItemRepository.save(products);
     }
 
     async seedCustomers() {
@@ -65,26 +89,33 @@ export class SeederService {
             {
                 id: 1,
                 status: 'pending',
-                products: product,
+                products: products,
                 createdAt: new Date(),
                 updatedAt: new Date(),
+                branch: branches[0],
             },
             {
                 id: 2,
                 status: 'pending',
-                products: product,
+                products: products,
                 createdAt: new Date(),
                 updatedAt: new Date(),
+                branch: branches[0],
             },
             {
                 id: 3,
                 status: 'pending',
-                products: product,
+                products: products,
                 createdAt: new Date(),
                 updatedAt: new Date(),
+                branch: branches[0],
             }
         ];
 
         await this.orderRepository.save(orders);
+    }
+
+    async seedBranches() {
+        await this.branchRepository.save(branches);
     }
 }

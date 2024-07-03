@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, UpdateDate
 import { Customer } from '../../customers/entities/customer.entity';
 import { Product } from '../../staff-products/entities/product.entity';
 import StatusType from '../types/StatusType';
+import { Branch } from 'src/modules/branches/entities/branch.entity';
 
 @Entity()
 export class Order {
@@ -31,4 +32,10 @@ export class Order {
     })
     @JoinTable()
     products: Product[];
+
+    @ManyToOne(() => Branch, {
+        cascade: false,
+    })
+    @JoinTable()
+    branch: Branch;
 }

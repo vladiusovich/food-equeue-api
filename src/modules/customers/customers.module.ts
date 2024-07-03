@@ -7,6 +7,4 @@ import { Order } from '../orders/entities/order.entity';
         TypeOrmModule.forFeature([Order]),
     ],
 })
-export class CustomersModule {
-
-}
+export class CustomersModule { }

@@ -7,7 +7,7 @@ import {
 } from '@nestjs/websockets';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Server } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
 import { Inject } from '@nestjs/common';
@@ -27,6 +27,14 @@ export class EventsGateway {
         @Inject(WINSTON_MODULE_PROVIDER)
         private readonly logger: Logger,
     ) { }
+
+    handleConnection(client: Socket): void {
+        console.log(`Client connected: ${client.id}`);
+    }
+
+    handleDisconnect(client: Socket): void {
+        console.log(`Client disconnected: ${client.id}`);
+    }
 
     @SubscribeMessage('events')
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -10,6 +10,7 @@ import { OrdersStaffModule } from 'src/modules/staff-orders/staff-orders.module'
 import { StaffProductsModule } from './modules/staff-products/staff-products.module';
 import { OrderExecutionCalculatorModule } from './modules/order-execution-time-calculator/order-execution-calculator.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { BranchModule } from './modules/branches/branches.module';
 
 @Module({
     imports: [
@@ -23,6 +24,7 @@ import { ScheduleModule } from '@nestjs/schedule';
         SqLiteDbModule, LoggerModule, OrdersModule,
         SeederModule, OrdersStaffModule, StaffProductsModule,
         OrderExecutionCalculatorModule,
+        BranchModule,
     ],
 })
 
