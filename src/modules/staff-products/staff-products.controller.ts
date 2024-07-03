@@ -19,7 +19,6 @@ export class StaffProductsController {
         return await this.staffProductService.find(request);
     }
 
-
     @Post('/products')
     async create(@Body() product: CreateProductRequest) {
         return this.staffProductService.create(product);
