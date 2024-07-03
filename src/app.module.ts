@@ -11,7 +11,7 @@ import { StaffProductsModule } from './modules/staff-products/staff-products.mod
 import { OrderExecutionCalculatorModule } from './modules/order-execution-time-calculator/order-execution-calculator.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { BranchModule } from './modules/branches/branches.module';
-import { QCodeModule } from './modules/qr-code.generator/qr-code.generator.module';
+import { QCodeModule } from './modules/qr-code-generator/qr-code.generator.module';
 
 @Module({
     imports: [
