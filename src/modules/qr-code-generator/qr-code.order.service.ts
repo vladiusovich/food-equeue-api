@@ -43,7 +43,11 @@ export class QrCodeOrderService {
             return this.getLocalIp() + ':3005';
         }
 
-        const clientUrl = this.configService.get<string>('CLIENT_APP_URL', 'http://localhost:3000');
+        const clientUrl = this.configService.get<string>('CLIENT_APP_URL');
+
+        if (!clientUrl) {
+            throw new Error('CLIENT_APP_URL is not defined.');
+        }
 
         return clientUrl;
     }
@@ -55,6 +59,7 @@ export class QrCodeOrderService {
             if (interfaces.hasOwnProperty(name)) {
                 for (const iface of interfaces[name]!) {
                     if (iface.family === 'IPv4' && !iface.internal) {
+                        console.log('getLocalIp. Local IP:', iface.address);
                         return iface.address;
                     }
                 }
