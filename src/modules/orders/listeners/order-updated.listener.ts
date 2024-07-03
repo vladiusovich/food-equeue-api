@@ -15,14 +15,13 @@ export class OrderUpdatedListener {
         @Inject(EventsGateway)
         private eventsGateway: EventsGateway,
 
-
         @Inject(OrdersService)
         private readonly ordersService: OrdersService,
     ) { }
 
     @OnEvent("order.updated")
     async handleOrderCreatedEvent(event: OrderCreatedEvent) {
-        this.logger.info(`Order ${event.payload.id} pushed`);
+        this.logger.info(`Order ${event?.payload?.id} pushed`);
 
         const ordersStatus = await this.ordersService.getOrdersStatus();
 

@@ -14,6 +14,9 @@ export class Branch {
     @Column()
     description: string;
 
+    @Column()
+    defaultOrderExecutionTime: number;
+
     @CreateDateColumn()
     createdAt: Date;
 
