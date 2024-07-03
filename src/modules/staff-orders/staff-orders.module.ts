@@ -9,11 +9,12 @@ import { Product } from '../staff-products/entities/product.entity';
 import { Customer } from '../customers/entities/customer.entity';
 import { OrderCreatedListener } from './listeners/order-created.listener';
 import { OrderUpdatedListener } from './listeners/order-updated.listener';
+import { Branch } from '../branches/entities/branch.entity';
 
 @Module({
     imports: [
         // EventsGatewayModule,
-        TypeOrmModule.forFeature([Order, Product, Customer]),
+        TypeOrmModule.forFeature([Order, Product, Customer, Branch]),
     ],
     controllers: [OrdersStaffController],
     providers: [

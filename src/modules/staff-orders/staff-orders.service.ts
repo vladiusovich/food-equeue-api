@@ -11,6 +11,7 @@ import { Product } from '../staff-products/entities/product.entity';
 import UpdateOrderRequest from './models/requests/update-order.request';
 import FindOrderRequest from './models/requests/find-order.request';
 import { formatPlainText, generateHash } from './utility/hash.generator';
+import { Branch } from '../branches/entities/branch.entity';
 
 @Injectable()
 export class OrdersStaffService {
@@ -19,6 +20,8 @@ export class OrdersStaffService {
         @InjectRepository(Order)
         private ordersRepository: Repository<Order>,
 
+        @InjectRepository(Branch)
+        private branchesRepository: Repository<Branch>,
         @InjectRepository(Customer)
         private customersRepository: Repository<Customer>,
 
@@ -51,9 +54,16 @@ export class OrdersStaffService {
             ? await this.customersRepository.findOneBy({ id: request.customerId })
             : null;
 
+        const branch = await this.branchesRepository.findOneBy({ id: request.branchId });
+
+        if (!branch) {
+            throw new Error(`Branch with id ${request.branchId} not found`);
+        };
+
         // Set order status and products
         newOrder.status = "pending";
         newOrder.products = await this.productsRepository.findBy({ id: In(request.products) });
+        newOrder.branch = branch;
 
         // Save the new order
         const createdOrder = await this.ordersRepository.save(newOrder);

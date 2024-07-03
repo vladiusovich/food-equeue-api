@@ -12,6 +12,7 @@ import { OrderExecutionCalculatorModule } from './modules/order-execution-time-c
 import { ScheduleModule } from '@nestjs/schedule';
 import { BranchModule } from './modules/branches/branches.module';
 import { QCodeModule } from './modules/qr-code-generator/qr-code.generator.module';
+import { CustomersModule } from './modules/customers/customers.module';
 
 @Module({
     imports: [
@@ -25,7 +26,7 @@ import { QCodeModule } from './modules/qr-code-generator/qr-code.generator.modul
         SqLiteDbModule, LoggerModule, OrdersModule,
         SeederModule, OrdersStaffModule, StaffProductsModule,
         OrderExecutionCalculatorModule,
-        BranchModule, QCodeModule,
+        BranchModule, QCodeModule, CustomersModule,
     ],
 })
 
