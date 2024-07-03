@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
@@ -16,14 +16,14 @@ export class CustomerOrderService {
         private readonly logger: Logger,
     ) { }
 
-    async getCustomerOrder(hash: string): Promise<CustomerOrderInfoResponse> {
+    async getOrderByHash(hash: string): Promise<CustomerOrderInfoResponse> {
         const order = await this.ordersRepository.findOne({
             where: { hash },
             relations: ['branch'],
         });
 
         if (!order) {
-            throw new Error(`Order with hash ${hash} not found`);
+            throw new NotFoundException(`Order with hash ${hash} not found`);
         }
 
         return {

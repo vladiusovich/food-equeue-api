@@ -12,6 +12,6 @@ export class CustomerController {
 
     @Get("")
     async idenitify(@Query('hash') hash: string): Promise<CustomerOrderInfoResponse> {
-        return await this.customerOrderService.getCustomerOrder(hash);
+        return await this.customerOrderService.getOrderByHash(hash);
     }
 }
