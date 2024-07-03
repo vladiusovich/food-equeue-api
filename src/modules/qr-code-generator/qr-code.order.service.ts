@@ -4,12 +4,15 @@ import { Order } from '../orders/entities/order.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { generateUrl } from './utility/url.generator';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class QrCodeOrderService {
     constructor(
         @Inject(QrCodeService)
         private readonly qrCodeService: QrCodeService,
+        @Inject(ConfigService)
+        private readonly configService: ConfigService,
         @InjectRepository(Order)
         private ordersRepository: Repository<Order>,
     ) { }
@@ -32,6 +35,8 @@ export class QrCodeOrderService {
 
     // TODO: dynaic host resolver
     private getHost(): string {
-        return process.env.HOST ?? 'http://localhost:3002';
+        const clientUrl = this.configService.get<string>('CLIENT_APP_URL', 'http://localhost:3002');
+
+        return clientUrl;
     }
 }

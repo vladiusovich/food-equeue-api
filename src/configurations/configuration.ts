@@ -1,3 +1,4 @@
+// TODO: Define the environment variables that you want to use in the application
 
 // interface EnvironmentVariables {
 //     PORT: number;
