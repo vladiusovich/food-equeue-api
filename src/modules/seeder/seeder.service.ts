@@ -19,9 +19,9 @@ const products = [
 const branches = [
     {
         id: 1,
-        name: 'Branch 1',
-        address: 'Address 1',
-        description: 'Description 1',
+        name: 'Chemi Chachapuri',
+        address: 'ვაჟა-ფშაველას გამზირი, Tbilisi',
+        description: 'Description random type of food',
         createdAt: new Date(),
         updatedAt: new Date(),
     },

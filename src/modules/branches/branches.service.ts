@@ -23,7 +23,7 @@ export class BranchService {
         });
 
         if (!order) {
-            throw new NotFoundException(`Cannot find order with id ${orderId}`);
+            throw new NotFoundException(`Cannot find order with id: ${orderId}`);
         }
 
         return order?.branch;
