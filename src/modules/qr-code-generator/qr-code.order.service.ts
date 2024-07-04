@@ -36,11 +36,11 @@ export class QrCodeOrderService {
 
     // TODO: dynaic host resolver
     private getHost(): string {
-        const isDev = this.configService.get<boolean>('IS_DEV', true);
-        const isLocalDeploy = this.configService.get<boolean>('IS_LOCAL_DEPLOY', true);
+        const isDev = this.configService.get<string>('IS_DEV', 'true');
+        const isLocalDeploy = this.configService.get<string>('IS_LOCAL_NETWORK_DEPLOY', 'true');
 
-        if (isDev && isLocalDeploy) {
-            return this.getLocalIp() + ':3005';
+        if (isDev === 'true' && isLocalDeploy === 'true') {
+            return this.configService.get<string>('CLIENT_APP_LOCAL_NETWORK_URL')!;
         }
 
         const clientUrl = this.configService.get<string>('CLIENT_APP_URL');
@@ -50,22 +50,5 @@ export class QrCodeOrderService {
         }
 
         return clientUrl;
-    }
-
-    getLocalIp(): string {
-        const interfaces = os.networkInterfaces();
-
-        for (const name in interfaces) {
-            if (interfaces.hasOwnProperty(name)) {
-                for (const iface of interfaces[name]!) {
-                    if (iface.family === 'IPv4' && !iface.internal) {
-                        console.log('getLocalIp. Local IP:', iface.address);
-                        return iface.address;
-                    }
-                }
-            }
-        }
-
-        return '127.0.0.1'; // Default fallback
     }
 }
