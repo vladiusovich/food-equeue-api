@@ -5,4 +5,8 @@ interface CustomerOrderInfoResponse
     status: string;
 }
 
+export interface IdentifyCustomerOrderResponse extends CustomerOrderInfoResponse {
+    token: string;
+}
+
 export default CustomerOrderInfoResponse;

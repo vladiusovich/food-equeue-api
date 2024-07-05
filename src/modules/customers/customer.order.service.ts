@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
 import { Order } from '../orders/entities/order.entity';
-import CustomerOrderInfoResponse from './models/customerOrderInfoResponse';
+import CustomerOrderInfoResponse from './models/customer-order-info.response';
 
 @Injectable()
 export class CustomerOrderService {
@@ -23,7 +23,7 @@ export class CustomerOrderService {
         });
 
         if (!order) {
-            throw new NotFoundException(`Order with hash ${hash} not found`);
+            throw new NotFoundException(`Order not found`);
         }
 
         return {

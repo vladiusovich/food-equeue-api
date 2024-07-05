@@ -1,3 +1,3 @@
 export const generateUrl = (host: string, hash: string) => {
-    return `http://${host}/${hash}`;
+    return `http://${host}/#/?hash=${hash}`;
 };
