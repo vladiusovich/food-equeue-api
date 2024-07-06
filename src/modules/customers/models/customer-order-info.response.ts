@@ -1,5 +1,4 @@
-interface CustomerOrderInfoResponse
-{
+interface CustomerOrderInfoResponse {
     orderId: number;
     branchId: number;
     status: string;

@@ -12,7 +12,7 @@ export class BranchesController {
 
 
     @Get("")
-    async getBranch(@Query("orderId", ParseIntPipe) orderId: number): Promise<Branch> {
+    async getBranch(@Query("id", ParseIntPipe) orderId: number): Promise<Branch> {
         return await this.brancesService.getBranch(orderId);
     }
 }
