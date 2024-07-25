@@ -5,7 +5,7 @@ interface CustomerOrderInfoResponse {
 }
 
 export interface IdentifyCustomerOrderResponse {
-    token: string;
+    access_token: string;
 }
 
 export default CustomerOrderInfoResponse;

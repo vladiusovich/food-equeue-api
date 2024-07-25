@@ -4,6 +4,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { CustomerAuthService } from './customer-auth.service';
 import { CustomerAuthStrategy } from './customer-auth.strategy';
 import { CustomerAuthController } from './customer.auth.controller';
+import { CustomerAuthGuard } from './customer-auth-gurd';
 
 @Module({
     imports: [
@@ -13,8 +14,12 @@ import { CustomerAuthController } from './customer.auth.controller';
         }),
     ],
     controllers: [CustomerAuthController],
-    providers: [CustomerAuthService, CustomerAuthStrategy],
-    exports: [CustomerAuthService],
+    providers: [
+        CustomerAuthGuard,
+        CustomerAuthService,
+        CustomerAuthStrategy,
+    ],
+    exports: [CustomerAuthService, CustomerAuthGuard, JwtModule],
 })
 
 export class CustomerAuthModule { }

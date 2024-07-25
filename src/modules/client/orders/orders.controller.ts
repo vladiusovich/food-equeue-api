@@ -1,11 +1,13 @@
-import { Controller, Get, Inject, ParseIntPipe, Query } from "@nestjs/common";
+import { Controller, Get, Inject, ParseIntPipe, Query, UseGuards } from "@nestjs/common";
 import { OrdersService as OrdersService } from "src/modules/client/orders/orders.service";
 import { WINSTON_MODULE_PROVIDER } from "nest-winston";
 import { Logger } from "winston";
 import OrdersStatus from "./interfaces/ordersStatus";
 import CustomerOrderStatus from "./interfaces/customerOrderStatus";
+import { CustomerAuthGuard } from "../customer-auth/customer-auth-gurd";
 
 @Controller("orders")
+@UseGuards(CustomerAuthGuard)
 export class OrdersController {
     constructor(
         private readonly ordersService: OrdersService,

@@ -14,10 +14,9 @@ export class CustomerAuthController {
 
     @Post("idenitify")
     async idenitify(@Body() request: IdentifyCustomerOrderRequest): Promise<IdentifyCustomerOrderResponse> {
-        const token = this.customerAuthService.generateToken({ hash: request.hash });
 
         return {
-            token,
+            access_token: this.customerAuthService.generateToken({ hash: request.hash }),
         };
     }
 }
