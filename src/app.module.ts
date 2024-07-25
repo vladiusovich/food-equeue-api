@@ -13,6 +13,7 @@ import { QCodeModule } from './modules/staff/qr-code-generator/qr-code.generator
 import { CustomersModule } from './modules/client/customers/customers.module';
 import { EventsGatewayModule } from './modules/common/events.gateway/events.gateway.module';
 import { OrderExecutionCalculatorModule } from './modules/common/order-execution-time-calculator/order-execution-calculator.module';
+import { CustomerAuthModule } from './modules/client/customer-auth/customer-auth.module';
 
 @Module({
     imports: [
@@ -27,6 +28,7 @@ import { OrderExecutionCalculatorModule } from './modules/common/order-execution
         SeederModule, OrdersStaffModule, StaffProductsModule,
         OrderExecutionCalculatorModule,
         BranchModule, QCodeModule, CustomersModule,
+        CustomerAuthModule,
     ],
 })
 
