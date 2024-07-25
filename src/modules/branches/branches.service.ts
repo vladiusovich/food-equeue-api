@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Logger } from 'winston';
 import { Branch } from './entities/branch.entity';
-import { Order } from '../orders/entities/order.entity';
+import { Order } from '../client/orders/entities/order.entity';
 
 @Injectable()
 export class BranchService {

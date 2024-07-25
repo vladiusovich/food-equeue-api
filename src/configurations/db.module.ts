@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Order } from '../modules/orders/entities/order.entity';
-import { Customer } from 'src/modules/customers/entities/customer.entity';
-import { Product } from 'src/modules/staff-products/entities/product.entity';
+import { Order } from '../modules/client/orders/entities/order.entity';
+import { Customer } from 'src/modules/client/customers/entities/customer.entity';
+import { Product } from 'src/modules/staff/staff-products/entities/product.entity';
 import { Branch } from 'src/modules/branches/entities/branch.entity';
 
 @Module({

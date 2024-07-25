@@ -1,18 +1,18 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { OrdersModule } from './modules/orders/orders.module';
+import { OrdersModule } from './modules/client/orders/orders.module';
 import { LoggerModule } from 'src/configurations/logger.module';
 import { SqLiteDbModule } from './configurations/db.module';
-import { SeederModule } from 'src/modules/seeder/seeder.module';
+import { SeederModule } from 'src/modules/infrastructure/seeder/seeder.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
-import { EventsGatewayModule } from 'src/modules/events.gateway/events.gateway.module';
-import { OrdersStaffModule } from 'src/modules/staff-orders/staff-orders.module';
-import { StaffProductsModule } from './modules/staff-products/staff-products.module';
-import { OrderExecutionCalculatorModule } from './modules/order-execution-time-calculator/order-execution-calculator.module';
+import { OrdersStaffModule } from 'src/modules/staff/staff-orders/staff-orders.module';
+import { StaffProductsModule } from './modules/staff/staff-products/staff-products.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { BranchModule } from './modules/branches/branches.module';
-import { QCodeModule } from './modules/qr-code-generator/qr-code.generator.module';
-import { CustomersModule } from './modules/customers/customers.module';
+import { QCodeModule } from './modules/staff/qr-code-generator/qr-code.generator.module';
+import { CustomersModule } from './modules/client/customers/customers.module';
+import { EventsGatewayModule } from './modules/common/events.gateway/events.gateway.module';
+import { OrderExecutionCalculatorModule } from './modules/common/order-execution-time-calculator/order-execution-calculator.module';
 
 @Module({
     imports: [

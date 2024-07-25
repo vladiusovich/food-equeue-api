@@ -3,7 +3,7 @@ import { BranchesController } from './branch.controller';
 import { BranchService } from './branches.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Branch } from './entities/branch.entity';
-import { Order } from '../orders/entities/order.entity';
+import { Order } from '../client/orders/entities/order.entity';
 
 @Module({
     imports: [
