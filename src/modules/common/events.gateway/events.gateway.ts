@@ -29,14 +29,14 @@ export class EventsGateway {
     ) { }
 
     handleConnection(client: Socket): void {
-        console.log(`Client connected: ${client.id}`);
+        console.debug(`Client connected: ${client.id}`);
 
         // TODO: reimpliment this but I dont know how
         // this.eventEmitter.emit("order.updated");
     }
 
     handleDisconnect(client: Socket): void {
-        console.log(`Client disconnected: ${client.id}`);
+        console.debug(`Client disconnected: ${client.id}`);
     }
 
     @SubscribeMessage('events')
