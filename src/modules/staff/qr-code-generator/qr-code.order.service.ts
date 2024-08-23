@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { generateUrl } from './utility/url.generator';
 import { ConfigService } from '@nestjs/config';
+import QrInfo from './models/qr-info';
 
 @Injectable()
 export class QrCodeOrderService {
@@ -17,7 +18,7 @@ export class QrCodeOrderService {
         private ordersRepository: Repository<Order>,
     ) { }
 
-    async generateQrCode(id: number): Promise<string> {
+    async generateQrCode(id: number): Promise<QrInfo> {
         const order = await this.ordersRepository.findOne({
             where: { id },
         });
@@ -30,7 +31,11 @@ export class QrCodeOrderService {
 
         const url = generateUrl(this.getHost(), order.hash);
 
-        return await this.qrCodeService.generateQrCode(url);
+        // TODO: raw url for dev mode only (add to config)
+        return {
+            url,
+            qrCode: await this.qrCodeService.generateQrCode(url),
+        };
     }
 
     // TODO: dynaic host resolver

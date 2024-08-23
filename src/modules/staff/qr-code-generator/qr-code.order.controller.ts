@@ -13,8 +13,14 @@ export class QrCodeOrderController {
 
     @Get('')
     async getQrCode(@Query('orderId', ParseIntPipe) orderId: number) {
-        const qrCodeDataURL = await this.qrCodeOrderService.generateQrCode(orderId);
+        const qrInfo = await this.qrCodeOrderService.generateQrCode(orderId);
 
-        return `<img src="${qrCodeDataURL}" alt="QR Code" />`;
+        return `
+            <div>
+                <img src="${qrInfo.qrCode}" alt="QR Code" />
+                <p>Order ID: ${orderId}</p>
+                <p>Url: ${qrInfo.url}</p>
+            </div>
+        `;
     }
 }
