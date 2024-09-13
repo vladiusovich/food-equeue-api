@@ -14,6 +14,9 @@ async function bootstrap() {
     const configService = app.get(ConfigService);
 
     const isDevelopment = configService.get<boolean>('IS_DEV', false);
+
+    console.log(`Seeding database in ${isDevelopment ? 'development' : 'production'} mode...`);
+
     await seederService.seed(isDevelopment);
 
     const port = configService.get<number>('PORT', 3000);

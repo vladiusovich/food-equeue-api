@@ -9,7 +9,7 @@ import { Branch } from 'src/modules/branches/entities/branch.entity';
     imports: [
         TypeOrmModule.forRoot({
             type: 'sqlite',
-            database: 'db.sqlite',
+            database: './db/db.sqlite',
             entities: [Customer, Order, Product, Branch],
             //shouldn't be used in production - otherwise you can lose production data
             synchronize: true,
