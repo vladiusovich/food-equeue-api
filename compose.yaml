@@ -14,10 +14,10 @@ services:
       CLIENT_APP_URL: 'http://localhost:3005'
       CLIENT_APP_LOCAL_NETWORK_URL: 'http://192.168.100.11:3005'
 
-      DB_HOST:'myHost'
-      DB_PORT:5432
+      DB_HOST: 'myHost'
+      DB_PORT: 5432
 
-      DB_USER='test'
-      DB_PASSWORD='test'
+      DB_USER: 'test'
+      DB_PASSWORD: 'test'
 volumes:
   sqlite_data:
