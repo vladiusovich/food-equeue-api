@@ -7,19 +7,19 @@ pipeline {
         VERSION = '1.0'
         DOCKER_NAME = "food-equeue-api"
 
-        # App
+        // # App
         PORT=5000
         IS_DEV=true
         IS_LOCAL_NETWORK_DEPLOY=true
-        CLIENT_APP_URL=http://localhost:3005
-        CLIENT_APP_LOCAL_NETWORK_URL=http://192.168.100.11:3005
+        CLIENT_APP_URL='http://localhost:3005'
+        CLIENT_APP_LOCAL_NETWORK_URL='http://192.168.100.11:3005'
 
-        # DB
-        DB_HOST=myHost
+        // # DB
+        DB_HOST='myHost'
         DB_PORT=5432
 
-        DB_USER=test
-        DB_PASSWORD=test
+        DB_USER='test'
+        DB_PASSWORD='test'
     }
 
     stages {
