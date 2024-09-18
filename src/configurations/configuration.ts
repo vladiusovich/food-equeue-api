@@ -1,18 +1,36 @@
-// TODO: Define the environment variables that you want to use in the application
+interface EnvironmentVariables {
+    port: number;
+    isDev: boolean;
+    islocalDeploy: boolean;
+    client: {
+        cientAppLocakUrl: string;
+        clientAppUrl: string;
+    },
+    db: {
+        host: string;
+        port: number;
+        user: string;
+        password: string;
+    }
+}
 
-// interface EnvironmentVariables {
-//     PORT: number;
-//     DATABASE_HOST: string;
-//     DATABASE_PORT: number;
-//     DATABASE_USER: string;
-//     DATABASE_PASSWORD: string;
-// }
-
-// const env = process.env;
+const env = process.env;
 
 // TODO
-export default () => {
+export default (): EnvironmentVariables => {
     return ({
-        // port: env.PORT|| 3000,
+        port: parseInt(env.PORT ?? '3000', 10),
+        isDev: env.IS_DEV === 'true',
+        islocalDeploy: env.IS_LOCAL_NETWORK_DEPLOY === 'true',
+        client: {
+            cientAppLocakUrl: env.CLIENT_APP_LOCAL_NETWORK_URL ?? 'http://localhost:3000',
+            clientAppUrl: env.CLIENT_APP_URL ?? '',
+        },
+        db: {
+            host: env.DB_HOST || 'localhost',
+            port: parseInt(env.DB_PORT ?? '5432', 10) || 5432,
+            user: env.DB_USER || 'postgres',
+            password: env.DB_PASSWORD || 'password',
+        }
     });
 };

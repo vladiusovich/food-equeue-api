@@ -1,0 +1,17 @@
+version: '3'
+services:
+  app:
+    image: ${IMAGE_NAME}:${VERSION}.${BUILD_NUMBER}
+    container_name: ${DOCKER_NAME}
+    ports:
+      - '${APP_PORT}:5000'
+    volumes:
+      - sqlite_data:/usr/src/app/db
+    environment:
+      PORT: 3000
+      IS_DEV: 'true'
+      IS_LOCAL_NETWORK_DEPLOY: 'true'
+      CLIENT_APP_URL: 'http://localhost:3005'
+      CLIENT_APP_LOCAL_NETWORK_URL: 'http://192.168.100.11:3005'
+volumes:
+  sqlite_data:

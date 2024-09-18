@@ -13,19 +13,19 @@ async function bootstrap() {
     const seederService = app.get(SeederService);
     const configService = app.get(ConfigService);
 
-    const isDevelopment = configService.get<boolean>('IS_DEV', false);
+    const isDevelopment = configService.get<boolean>('isDev', false);
 
-    console.log(`Seeding database in ${isDevelopment ? 'development' : 'production'} mode...`);
+    if (isDevelopment) {
+        await seederService.seed();
+    }
 
-    await seederService.seed(isDevelopment);
-
-    const port = configService.get<number>('PORT', 3000);
+    const port = configService.get<number>('port', 3000);
 
     app.enableCors();
 
     await app.listen(port);
 
-    console.log(`Application is running on: ${await app.getUrl()}`);
+    console.log(`Application (${isDevelopment ? 'development' : 'production'} mode) is running on: ${await app.getUrl()}`);
 }
 
 bootstrap();

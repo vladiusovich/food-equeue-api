@@ -40,14 +40,14 @@ export class QrCodeOrderService {
 
     // TODO: dynaic host resolver
     private getHost(): string {
-        const isDev = this.configService.get<string>('IS_DEV', 'true');
-        const isLocalDeploy = this.configService.get<string>('IS_LOCAL_NETWORK_DEPLOY', 'true');
+        const isDev = this.configService.get<boolean>('isDev', false);
+        const isLocalDeploy = this.configService.get<boolean>('islocalDeploy', false);
 
-        if (isDev === 'true' && isLocalDeploy === 'true') {
-            return this.configService.get<string>('CLIENT_APP_LOCAL_NETWORK_URL')!;
+        if (isDev && isLocalDeploy) {
+            return this.configService.get<string>('client.cientAppLocakUrl')!;
         }
 
-        const clientUrl = this.configService.get<string>('CLIENT_APP_URL');
+        const clientUrl = this.configService.get<string>('client.clientAppUrl');
 
         if (!clientUrl) {
             throw new Error('CLIENT_APP_URL is not defined.');

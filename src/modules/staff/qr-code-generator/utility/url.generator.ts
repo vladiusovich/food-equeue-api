@@ -1,3 +1,5 @@
+
+// TODO: reimplement '#'
 export const generateUrl = (host: string, hash: string) => {
-    return `http://${host}/#/?hash=${hash}`;
+    return `${host}/#/?hash=${hash}`;
 };

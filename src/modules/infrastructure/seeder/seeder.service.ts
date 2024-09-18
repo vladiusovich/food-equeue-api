@@ -57,17 +57,15 @@ export class SeederService {
     ) { }
 
 
-    async seed(isDevelopment: boolean) {
-        if (isDevelopment) {
-            this.logger.info("Seeding data for dev env...");
+    async seed() {
+        this.logger.info("Seeding data for dev env...");
 
-            await this.seedBranches();
-            await this.seedProducts();
-            await this.seedCustomers();
-            await this.seedOrders();
+        await this.seedBranches();
+        await this.seedProducts();
+        await this.seedCustomers();
+        await this.seedOrders();
 
-            this.logger.info("Seeding data for dev env is done");
-        }
+        this.logger.info("Seeding data for dev env is done");
     }
 
     async seedProducts() {
